@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   Dimensions,
   FlatList,
@@ -111,6 +112,14 @@ export default function PropertyDetailsScreen() {
       },
     ]);
   };
+
+  if (loading) {
+    return (
+      <View className="items-center justify-center flex-1 bg-white">
+        <ActivityIndicator size="large" color="#2563EB" />
+      </View>
+    );
+  }
 
   if (!property) {
     return (
@@ -311,7 +320,7 @@ export default function PropertyDetailsScreen() {
             </Text>
           </TouchableOpacity>
 
-          {true && (
+          {isAdmin && (
             <View className="flex-row gap-3">
               {!property.is_sold && (
                 <TouchableOpacity
